@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>KT-blalba</title>
+    <!-- CSS only -->
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link href="../entirestyle.css" rel="stylesheet" />
+    <style>
+      .card {
+        margin-bottom: 2rem;
+        border: 1px solid gainsboro;
+      }
+      .card:hover {
+        background-color: powderblue;
+      }
+      .board_wrap {
+        width: 1000px;
+        margin: 50px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- notice 영역 -->
+    <!-- <div style="background-color: yellow; padding: 5px">
+      <h4 style="text-align: center">notice region</h4>
+    </div> -->
+
+    <!-- header 영역 -->
+    <header class="p-3 text-white" id="header">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="section.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none mr-2">
+            <img src="https://cfm.kt.com/images/v2/layout/gnb-ktlogo.png" alt="kt" />
+          </a>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="livechat.html" class="nav-link px-2 text-dark" style="margin:0 10px;"><b>LiveChat</b></a></li>
+            <li><a href="expert-category.html" class="nav-link px-2 text-dark" style="margin-right: 10px;"><b>Expert</b></a></li>
+            <li><a href="Dashboard.html" class="nav-link px-2 text-dark" style="margin-right: 10px;"><b>Dashboard</b></a></li>
+            <li><a href="notice.html" class="nav-link px-2 text-dark"><b>Notice</b></a></li>
+          </ul>
+
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" />
+          </form>
+
+          <div class="text-end">
+            <button type="button" class="btn me-2"><b>꾀꼬리님</b></button>
+            <button type="button" class="btn btn-warning" onclick="location.href='mainpage.html'">Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+ 
+
+    <!-- 콘텐츠 영역 -->
+    <div class="layout container">
+        <div class="board_wrap">
+          <div class="container">
+            <div class="row articles">
+            </div>
+            <div class="col-12">
+              <!-- <a href="write.html" class="on">등록</a>
+               <a href="#">수정</a> -->
+               <button type="button" class="btn btn-primary float-right" onclick="location.href=`expert-write.html?${categoryId}`">등록</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer></footer>
+    <script src="../jquery-3.6.0.js"></script>
+    <script src="../board.js"></script>
+    <script>
+      var temp = location.href.split("?");
+      var categoryId = temp[1];
+      $(function () {
+        $.ajax({
+          url: `http://localhost:3000/posts?categoryId=${categoryId}&_sort=id&_order=DESC`,
+          type: "GET",
+        }).done(function (data) {
+          getArticles(data, 'posts');
+        });
+      });
+    </script>
+  </body>
+</html>

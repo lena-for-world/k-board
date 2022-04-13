@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindPassword</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Alata", sans-serif;
+      }
+
+      .page-container {
+        width: 100vw;
+        height: 100vh;
+        background: #eff0f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .shadow {
+        -webkit-box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+        -moz-box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+        box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+      }
+      .login-form-container {
+        background: #f5f5f5;
+        width: 860px;
+        height: 540px;
+        display: flex;
+        flex-direction: row;
+        box-shadow: 10px black;
+        border-radius: 10px;
+      }
+      .login-form-left-side {
+        width: 100%;
+        /* border-radius: 0px 10px 10px 0px; */
+        display: flex;
+
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+        background: rgb(255, 255, 255);
+        background: linear-gradient(
+          287deg,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(243, 244, 244, 1) 0%,
+          rgba(255, 255, 255, 1) 100%
+        );
+      }
+      .login-form-left-side .login-top-wrap {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+      }
+      .login-form-left-side .login-top-wrap span {
+        color: gray;
+        font-size: 11px;
+        padding-right: 20px;
+      }
+      .login-form-left-side .login-top-wrap .create-account-btn {
+        background: white;
+        border: 0;
+        width: 85px;
+        height: 35px;
+        font-size: 11px;
+        color: #21aeff;
+        border-radius: 3px;
+      }
+      .login-input-container {
+        padding-top: 120px;
+        width: 300px;
+      }
+      .login-input-container .login-input-wrap {
+        width: 300px;
+        height: 45px;
+        margin-top: 20px;
+        border-radius: 2px;
+        border-bottom: solid 2px #21cfff;
+      }
+      .login-input-container .login-input-wrap i {
+        color: #1aceea;
+        line-height: 45px;
+      }
+
+      .login-input-container .login-input-wrap input {
+        background: none;
+
+        border: none;
+        line-height: 45px;
+        padding-left: 10px;
+        width: 267px;
+      }
+      .login-input-container .login-input-wrap input:focus {
+        outline: none;
+      }
+      .login-btn-wrap {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .login-btn-wrap .login-btn {
+        width: 95px;
+        height: 35px;
+        color: white;
+        border: 0;
+        border-radius: 4px;
+
+        background: rgb(105, 198, 255);
+        background: linear-gradient(
+          162deg,
+          rgba(105, 163, 255, 1) 0%,
+          rgba(43, 125, 254, 1) 50%,
+          rgba(43, 125, 254, 1) 100%
+        );
+      }
+      .login-btn-wrap a {
+        margin-top: 10px;
+        text-decoration: none;
+        font-size: 11px;
+        color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="login-form-container shadow">
+        <div class="login-form-left-side">
+          <div class="login-input-container">
+            <div class="login-input-wrap input-id">
+              <i class="fa fa-signature"></i>
+              <input placeholder="Name" type="text" />
+            </div>
+            <div class="login-input-wrap input-password">
+              <i class="fa fa-phone"></i>
+              <input placeholder="Tel" type="password" />
+            </div>
+          </div>
+          <div class="login-btn-wrap">
+            <button class="login-btn"><a href="new.html" style="color: #f5f5f5">Find</a></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
