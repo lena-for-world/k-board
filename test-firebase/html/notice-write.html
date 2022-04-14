@@ -99,8 +99,10 @@
         </div>
       </div>
     </div>
-    <script src="../jquery-3.6.0.js"></script>
-    <script src="../board.js"></script>
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../js/board.js"></script>
+    <script src="../js/post.js"></script>
+    <script src="../js/create.js"></script>
     <script>
       let password;
       $(function () {
@@ -115,22 +117,14 @@
         });
       });
       document.querySelector(".on").addEventListener("click", function () {
-        var data = {};
-        data.title = document.getElementById("title").value;
-        data.author = document.getElementById("author").value;
-        data.password = password;
-        data.content = document.getElementById("content").value;
-        $(function () {
-          $.ajax({
-            url: `http://localhost:3000/faqs`,
-            type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-          }).done(function (data) {
-            //location.href = "view.html?" + data.title + "/" + data.author + "/" + data.password + "/" + data.content;
-            location.href = "notice.html";
-          });
-        });
+        var data = new getData(
+          document.getElementById("title").value,
+          document.getElementById("author").value,
+          password,
+          document.getElementById("content").value
+        );
+        const posting = new NoticePosting("faqs");
+        posting.postToServer(data);
       });
     </script>
   </body>

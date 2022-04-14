@@ -165,8 +165,8 @@
 
     <!-- footer -->
     <footer></footer>
-    <script src="../jquery-3.6.0.js"></script>
-    <script src="../board.js"></script>
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../js/board.js"></script>
     <script>
       const categoryButs = document.querySelectorAll(".card-body");
       for (let i = 0; i < categoryButs.length; i++) {
@@ -178,12 +178,3 @@
     </script>
   </body>
 </html>
-<!--
-$(function () {
-  $.ajax({
-    url: `http://localhost:3000/posts?categoryId=${categoryId}&_sort=id&_order=DESC`,
-    type: "GET",
-  }).done(function () {
-    location.href='expert-detail.html?' + categoryId;
-  });
-});-->

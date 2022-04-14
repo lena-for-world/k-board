@@ -109,29 +109,23 @@
         </div>
       </div>
     </div>
-    <script src="../jquery-3.6.0.js"></script>
-    <script src="../board.js"></script>
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../js/board.js"></script>
+    <script src="../js/post.js"></script>
+    <script src="../js/create.js"></script>
     <script>
       document.querySelector(".on").addEventListener("click", function () {
-        console.log("asdfsad");
-        var data = {};
         var temp = location.href.split("?");
         var categoryId = temp[1];
-        data.title = document.getElementById("title").value;
-        data.categoryId = categoryId;
-        data.author = document.getElementById("author").value;
-        data.password = document.getElementById("password").value;
-        data.content = document.getElementById("content").value;
-        $(function () {
-          $.ajax({
-            url: `http://localhost:3000/posts`,
-            type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-          }).done(function (data) {
-            location.href = `expert-detail.html?${categoryId}`;
-          });
-        });
+        var data = new getCategoryData(
+          document.getElementById("title").value,
+          categoryId,
+          document.getElementById("author").value,
+          password,
+          document.getElementById("content").value
+        );
+        const posting = new ExpertPosting("posts", categoryId);
+        posting.postToServer(data);
       });
     </script>
   </body>

@@ -11,7 +11,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-// import { nickname } from "./auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -43,13 +42,11 @@ onValue(chatRef, (snapshot) => {
   let lastmsglist = {};
   let timelist = {};
   snapshot.forEach(function (child) {
-    console.log(child.val());
     chatnamelist[child.val()["chatname"]] = child.val()["chatname"];
     lastmsglist[child.val()["lastmsg"]] = child.val()["lastmsg"];
     timelist[child.val()["writtentime"]] = child.val()["writtentime"];
   });
   getChatRooms(chatnamelist, lastmsglist, timelist);
-  console.log(lastmsglist);
   let roomname = document.querySelectorAll(".chatroomitem #roomname");
   for (let i = 0; i < chatList.length; i++) {
     chatList[i].addEventListener("click", function () {
@@ -65,7 +62,6 @@ function makeAuth() {
       // Signed in..
       console.log("익명 인증 완");
       name = auth.currentUser.uid;
-      console.log(name);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -75,20 +71,13 @@ function makeAuth() {
     });
 }
 
-function getChatRooms(chatnamelist, lastmsglist, timelist) {
-  console.log(Object.keys(chatnamelist).length);
-  let roomList = "";
-  for (let i = Object.keys(chatnamelist).length - 1; i >= 0; i--) {
-    let tempText = "";
-    let tempName, tempMsg, tempTime;
-    tempName = Object.keys(chatnamelist)[i];
-    tempMsg = Object.keys(lastmsglist)[i];
-    tempTime = Object.keys(timelist)[i];
-    tempText = createChat(tempName, tempMsg, tempTime);
-    roomList += tempText;
-    console.log(tempMsg);
-  }
-  document.querySelector("#chatrooms").innerHTML = roomList;
+function makeChat() {
+  const db = getDatabase();
+  set(ref(db, "chats/" + chatName.value), {
+    chatname: chatName.value,
+    lastmsg: "nothing",
+    writtentime: new Date().getTime(),
+  });
 }
 
 function createChat(tempName, tempMsg, tempTime) {
@@ -121,8 +110,22 @@ function createChat(tempName, tempMsg, tempTime) {
   );
 }
 
+function getChatRooms(chatnamelist, lastmsglist, timelist) {
+  let roomList = "";
+  for (let i = Object.keys(chatnamelist).length - 1; i >= 0; i--) {
+    let tempText = "";
+    let tempName, tempMsg, tempTime;
+    tempName = Object.keys(chatnamelist)[i];
+    tempMsg = Object.keys(lastmsglist)[i];
+    tempTime = Object.keys(timelist)[i];
+    tempText = createChat(tempName, tempMsg, tempTime);
+    roomList += tempText;
+    console.log(tempMsg);
+  }
+  document.querySelector("#chatrooms").innerHTML = roomList;
+}
+
 function getMessages(roomName) {
-  console.log(roomName);
   chatName = roomName;
   document.getElementById("toproomname").innerText = roomName;
   const chatRoomRef = ref(database, "messages/" + roomName);
@@ -138,15 +141,6 @@ function getMessages(roomName) {
       idx++;
     });
     printMsgList(nameList, msgList, writtentimeList);
-  });
-}
-
-function makeChat() {
-  const db = getDatabase();
-  set(ref(db, "chats/" + chatName.value), {
-    chatname: chatName.value,
-    lastmsg: "nothing",
-    writtentime: new Date().getTime(),
   });
 }
 
@@ -175,21 +169,13 @@ function sendMessage() {
 }
 
 function printMsgList(nameList, msgList, writtentimeList) {
-  console.log(nameList);
   let messageList = "";
   for (let i = 0; i < Object.keys(nameList).length; i++) {
     let tempText = "";
     if (nameList[i] === name) {
-      tempText =
-        /*'<p class="msg usermsg card d-inline-block p-2 px-3 m-2">' +
-        `이름: ${nameList[i]}\n메시지: ${msgList[i]}\n작성시각: ${writtentimeList[i]}` +
-        "</p><br/>";*/
-        tempText = createMsg(nameList[i], msgList[i], writtentimeList[i], true);
+      tempText = createMsg(nameList[i], msgList[i], writtentimeList[i], true);
     } else {
       tempText = createMsg(nameList[i], msgList[i], writtentimeList[i], false);
-      /*'<p class="msg card d-inline-block p-2 px-3 m-2">' +
-        `이름: ${nameList[i]}\n메시지: ${msgList[i]}\n작성시각: ${writtentimeList[i]}` +
-        "</p><br/>";*/
     }
     messageList += tempText;
   }
@@ -206,7 +192,6 @@ function createMsg(name, msg, time, out) {
   } else {
     res = '<div class="message">';
   }
-  console.log(res);
   console.log("out: " + out);
   return (
     res +
@@ -237,7 +222,6 @@ function createMsg(name, msg, time, out) {
 }
 
 submitBtn.addEventListener("click", function () {
-  console.log("눌리긴함");
   sendMessage();
 });
 createRoomBtn.addEventListener("click", function () {
@@ -246,19 +230,3 @@ createRoomBtn.addEventListener("click", function () {
 });
 
 makeAuth();
-
-/*
-function updateMessge(data) {
-  let messageList = "";
-  for (let i = 0; i < Object.keys(data).length; i++) {
-    let tempText = "";
-    let tempName = Object.keys(data)[i];
-    tempText =
-      "<li>" +
-      `이름: ${data[tempName]["name"]}\n메시지: ${data[tempName]["message"]}\n작성시각: ${data[tempName]["writtentime"]}` +
-      "</li>";
-    messageList += tempText;
-  }
-  document.querySelector("#messageWindow").innerHTML = messageList;
-}
-*/
